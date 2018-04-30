@@ -46,10 +46,20 @@ void run(FILE *in, int close_when_done) {
   while (++lists[24].entries[0].num <= list[26].length)
     if (!strcmp(INSTR, "^_^"))
       /*TODO*/;
-    else
+    else {
       #define INSTR lists[26].entries[lists[24].entries[0].num].string
-      #define LIST lists[/*TODO*/]
-      #define FACE lists[/*TODO*/]
+      int id = lists[1].entries[0].string[0] - ('A' - 1);
+      if (id == ':' - 'A' + 1)
+        id = 0;
+      struct *_list = *(lists[id]);
+      #define &LIST _list
+      #define LIST (*_list)
+      id = INSTR[0] - ('A' - 1);
+      if (id == ':' - 'A' + 1)
+        id = 0;
+      struct *_face = *(lists[id]);
+      #define &FACE _face
+      #define FACE (*_face)
       switch (INSTR[strlen(INSTR - 1)]) {
       case 'O':
         /*TODO*/
@@ -157,6 +167,7 @@ void run(FILE *in, int close_when_done) {
           strcpy(LIST.entries[LIST.length++].string, INSTR);
         }
       }
+    }
 }
 
 int main(int argc, char **argv) {

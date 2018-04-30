@@ -16,37 +16,69 @@ struct list {
   struct list_entry entries[MAX_LIST_LENGTH];
 };
 
+void remove_left(struct list *list) {
+  for (int i = 1; i < list->length; i++)
+    (*list)[i - 1] = (*list)[i];
+  list->length--;
+}
+
+void insert_left(struct list *list, struct list_entry entry) {
+  for (int i = list->length; i >= 0; )
+    (*list)[i] = (*list)[--i];
+  (*list)[0] = entry;
+}
+
 void run(FILE *in) {
   char buffer[MAX_WORD_LENGTH];
   struct list lists[27];
   lists[24].length = 1;
-  lists[24].entries[0] = (list_entry){.is_string = 0, .num = 0};
-  lists[26].entries[0] = (list_entry){.is_string = 1, .string = "START"};
+  lists[24].entries[0] = (struct list_entry){.is_string = 0, .num = 0};
+  lists[26].entries[0] = (struct list_entry){.is_string = 1, .string = "START"};
   do
-    lists[26].entries[++lists[26].length] = (list_entry){.is_string = 1};
+    lists[26].entries[++lists[26].length] = (struct list_entry){.is_string = 1};
   while (fscanf(in, " %s", lists[26].entries[lists[26].length].string));
   lists[1].length = 1;
-  lists[1].entries[0] = (list_entry){.is_string = 1, .string = ":"};
+  lists[1].entries[0] = (struct list_entry){.is_string = 1, .string = ":"};
   lists[19].length = 1;
-  lists[19].entries[0] = (list_entry){.is_string = 1, .string = " "};
+  lists[19].entries[0] = (struct list_entry){.is_string = 1, .string = " "};
   while (++lists[24].entries[0].num <= list[26].length)
-    #define INSTR lists[26].entries[lists[24].entries[0].num].string
-    #define LIST lists[/*TODO*/]
-    #define FACE lists[/*TODO*/]
-    switch (INSTR[strlen(INSTR - 1)]) {
+    if (!strcmp(INSTR, "^_^"))
+      /*TODO*/;
+    else
+      #define INSTR lists[26].entries[lists[24].entries[0].num].string
+      #define LIST lists[/*TODO*/]
+      #define FACE lists[/*TODO*/]
+      switch (INSTR[strlen(INSTR - 1)]) {
       case 'O':
         /*TODO*/
         break;
       case 'C':
-        /*TODO: insert (list_entry){.is_string = 0, .num = FACE.length} in front of LIST.entries*/
+        struct list_entry tmp = {.is_string = 0, .num = FACE.length};
+        insert_left(&LIST, tmp);
         break;
       case '<':
-        /*TODO*/
+        if (LIST.entries[0].is_string) {
+          struct list_entry tmp;
+          tmp.is_string = 1;
+          strcpy(tmp.string, LIST.entries[0].string);
+          insert_left(&FACE, tmp);
+        }
+        else
+          insert_left(&FACE, LIST.entries[0]);
+        remove_left(&LIST);
         break;
       case '>':
         FACE.entries[FACE.length++] = LIST.entries[--LIST.length];
+        break;
       case '[':
-        /*TODO*/
+        if (LIST.entries[0].is_string) {
+          struct list_entry tmp;
+          tmp.is_string = 1;
+          strcpy(tmp.string, LIST.entries[0].string);
+          insert_left(&FACE, tmp);
+        }
+        else
+          insert_left(&FACE, LIST.entries[0]);
         break;
       case ']':
         FACE.entries[FACE.length++] = LIST.entries[LIST.length - 1];
@@ -55,7 +87,9 @@ void run(FILE *in) {
         /*TODO*/
         break;
       case 'D':
-        /*TODO*/
+        FACE.length = LIST.length;
+        for (int i = 0; i < FACE.length; i++)
+          FACE.entries[i] = LIST.entries[i];
         break;
       case '@':
         /*TODO*/
@@ -67,26 +101,60 @@ void run(FILE *in) {
           printf("%d", FACE.entries[0].num);
         break;
       case 'Q':
+        if (FACE.entries[0].is_string)
+          printf("%s", FACE.entries[0].string);
+        else
+          printf("%d", FACE.entries[0].num);
+        remove_left(&FACE);
+        break;
       case '7':
+        /*TODO*/
+        break;
       case 'L':
+        /*TODO*/
+        break;
       case '#':
+        /*TODO*/
+        break;
       case '$':
+        /*TODO*/
+        break;
       case '{':
+        /*TODO*/
+        break;
       case '}':
+        /*TODO*/
+        break;
       case '\\':
+        /*TODO*/
+        break;
       case '/':
+        /*TODO*/
+        break;
       case '(':
+        /*TODO*/
+        break;
       case ')':
+        /*TODO*/
+        break;
       case '|':
+        /*TODO*/
+        break;
       case '3':
+        /*TODO*/
+        break;
       case 'E':
+        /*TODO*/
+        break;
       default:
         int n = atoi(INSTR);
         if (n || INSTR[0] = '0')
-          LIST.entries[LIST.length++] = (list_entry){.is_string = 0, .num = n};
-        else
-          LIST.entries[LIST.length++] = (list_entry){.is_string = 1, .string = INSTR};
-    }
+          LIST.entries[LIST.length++] = (struct list_entry){.is_string = 0, .num = n};
+        else {
+          LIST.entries[LIST.length].is_string = 1;
+          strcpy(LIST.entries[LIST.length++].string, INSTR);
+        }
+      }
 }
 
 int main(int argc, char **argv) {

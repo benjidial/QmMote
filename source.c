@@ -26,6 +26,8 @@ void run(FILE *in) {
   while (fscanf(in, " %s", lists[26].entries[lists[26].length].string));
   lists[1].length = 1;
   lists[1].entries[0] = (list_entry){.isString = 1, .string = ":"};
+  lists[19].length = 1;
+  lists[19].entries[0] = (list_entry){.isString = 1, .string = " "};
   while (++list[24].entries[0].num <= list[26].length)
     /*TODO*/;
 }

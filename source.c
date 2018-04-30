@@ -26,11 +26,12 @@ void run(FILE *in) {
     lists[26].entries[++lists[26].length] = (list_entry){.is_string = 1};
   while (fscanf(in, " %s", lists[26].entries[lists[26].length].string));
   lists[1].length = 1;
-  lists[1].entries[0] = (list_entry){.isString = 1, .string = ":"};
+  lists[1].entries[0] = (list_entry){.is_string = 1, .string = ":"};
   lists[19].length = 1;
-  lists[19].entries[0] = (list_entry){.isString = 1, .string = " "};
+  lists[19].entries[0] = (list_entry){.is_string = 1, .string = " "};
   while (++lists[24].entries[0].num <= list[26].length)
     #define INSTR lists[26].entries[lists[24].entries[0].num].string
+    #define LIST /*TODO*/
     switch (INSTR[strlen(INSTR - 1)]) {
       case 'O':
       case 'C':
@@ -57,8 +58,11 @@ void run(FILE *in) {
       case '3':
       case 'E':
       default:
-        int n;
-        /*sscanf(INSTR, "%d", &n) ? : ;*/
+        int n = atoi(INSTR);
+        if (n || INSTR[0] = '0')
+          LIST.entries[LIST.length++] = (list_entry){.is_string = 0, .num = n};
+        else
+          LIST.entries[LIST.length++] = (list_entry){.is_string = 1, .string = INSTR};
     }
 }
 

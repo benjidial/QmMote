@@ -1,7 +1,26 @@
 #include <stdio.h>
+#define MAX_WORD_LENGTH 255
+#define MAX_LIST_LENGTH 64
+
+struct list_entry {
+  int is_string;
+  union {
+    int num;
+    char string[MAX_WORD_LENGTH];
+  };
+};
+
+struct list {
+  int length = 0;
+  struct list_entry entries[MAX_LIST_LENGTH];
+};
 
 void run(FILE *in) {
-  
+  char buffer[MAX_WORD_LENGTH + 1];
+  struct list lists[27];
+  while (fscanf(in, " %s", buffer) != EOF) {
+    /*TODO*/
+  }
 }
 
 int main(int argc, char **argv) {

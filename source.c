@@ -18,14 +18,14 @@ struct list {
 void run(FILE *in) {
   char buffer[MAX_WORD_LENGTH];
   struct list lists[27];
-  list[24].length = 1;
-  list[24].entries[0] = (list_entry){.is_string = 0, .num = 0};
-  list[26].entries[0] = (list_entry){.is_string = 1, .string = "START"};
+  lists[24].length = 1;
+  lists[24].entries[0] = (list_entry){.is_string = 0, .num = 0};
+  lists[26].entries[0] = (list_entry){.is_string = 1, .string = "START"};
   do
-    list[26].entries[++list[26].length] = (list_entry){.is_string = 1};
-  while (fscanf(in, " %s", list[26].entries[list[26].length].string));
-  list[1].length = 1;
-  list[1].entries[0] = (list_entry){.isString = 1, .string = ":"};
+    lists[26].entries[++lists[26].length] = (list_entry){.is_string = 1};
+  while (fscanf(in, " %s", lists[26].entries[lists[26].length].string));
+  lists[1].length = 1;
+  lists[1].entries[0] = (list_entry){.isString = 1, .string = ":"};
   while (++list[24].entries[0].num <= list[26].length)
     /*TODO*/;
 }

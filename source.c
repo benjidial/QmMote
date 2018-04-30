@@ -31,18 +31,41 @@ void run(FILE *in) {
   lists[19].entries[0] = (list_entry){.is_string = 1, .string = " "};
   while (++lists[24].entries[0].num <= list[26].length)
     #define INSTR lists[26].entries[lists[24].entries[0].num].string
-    #define LIST /*TODO*/
+    #define LIST lists[/*TODO*/]
+    #define FACE lists[/*TODO*/]
     switch (INSTR[strlen(INSTR - 1)]) {
       case 'O':
+        /*TODO*/
+        break;
       case 'C':
+        /*TODO: insert (list_entry){.is_string = 0, .num = FACE.length} in front of LIST.entries*/
+        break;
       case '<':
+        /*TODO*/
+        break;
       case '>':
+        FACE.entries[FACE.length++] = LIST.entries[--LIST.length];
       case '[':
+        /*TODO*/
+        break;
       case ']':
+        FACE.entries[FACE.length++] = LIST.entries[LIST.length - 1];
+        break;
       case 'V':
+        /*TODO*/
+        break;
       case 'D':
+        /*TODO*/
+        break;
       case '@':
+        /*TODO*/
+        break;
       case 'P':
+        if (FACE.entries[0].is_string)
+          printf("%s", FACE.entries[0].string);
+        else
+          printf("%d", FACE.entries[0].num);
+        break;
       case 'Q':
       case '7':
       case 'L':

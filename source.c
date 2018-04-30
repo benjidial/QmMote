@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #define MAX_WORD_LENGTH 255
 #define MAX_LIST_LENGTH 64
 
@@ -28,8 +29,37 @@ void run(FILE *in) {
   lists[1].entries[0] = (list_entry){.isString = 1, .string = ":"};
   lists[19].length = 1;
   lists[19].entries[0] = (list_entry){.isString = 1, .string = " "};
-  while (++list[24].entries[0].num <= list[26].length)
-    /*TODO*/;
+  while (++lists[24].entries[0].num <= list[26].length)
+    #define INSTR lists[26].entries[lists[24].entries[0].num].string
+    switch (INSTR[strlen(INSTR - 1)]) {
+      case 'O':
+      case 'C':
+      case '<':
+      case '>':
+      case '[':
+      case ']':
+      case 'V':
+      case 'D':
+      case '@':
+      case 'P':
+      case 'Q':
+      case '7':
+      case 'L':
+      case '#':
+      case '$':
+      case '{':
+      case '}':
+      case '\\':
+      case '/':
+      case '(':
+      case ')':
+      case '|':
+      case '3':
+      case 'E':
+      default:
+        int n;
+        /*sscanf(INSTR, "%d", &n) ? : ;*/
+    }
 }
 
 int main(int argc, char **argv) {

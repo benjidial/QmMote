@@ -28,7 +28,7 @@ void insert_left(struct list *list, struct list_entry entry) {
   (*list)[0] = entry;
 }
 
-void run(FILE *in) {
+void run(FILE *in, int close_when_done) {
   char buffer[MAX_WORD_LENGTH];
   struct list lists[27];
   lists[24].length = 1;
@@ -37,6 +37,8 @@ void run(FILE *in) {
   do
     lists[26].entries[++lists[26].length] = (struct list_entry){.is_string = 1};
   while (fscanf(in, " %s", lists[26].entries[lists[26].length].string));
+  if (close_when_done)
+    fclose(in);
   lists[1].length = 1;
   lists[1].entries[0] = (struct list_entry){.is_string = 1, .string = ":"};
   lists[19].length = 1;
@@ -159,13 +161,13 @@ void run(FILE *in) {
 
 int main(int argc, char **argv) {
   if (argc == 1) {
-    run(stdin);
+    run(stdin, 0);
     return 0;
   }
   FILE *fptr;
   int (i = 1; i <= argc; i++)
     if (fptr = fopen(argv[i], "r"))
-      run(fptr);
+      run(fptr, 1);
     else
       fprintf(stderr, "Could not open file '%s'.\n", argv[i]);
   return 0;
